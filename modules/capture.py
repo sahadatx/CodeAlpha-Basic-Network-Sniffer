@@ -5,6 +5,7 @@ Handles live packet capturing using Scapy.
 """
 
 from scapy.all import sniff
+from scapy.layers.inet import IP
 
 from config import (
     CAPTURE_COUNT,
@@ -16,8 +17,13 @@ from config import (
 )
 
 from modules.analyzer import analyze_packet
+from modules.exporter import (
+    initialize_csv,
+    export_csv,
+)
 from modules.filters import build_bpf_filter
 from modules.logger import logger
+from modules.protocols import detect_protocol
 
 packet_count = 0
 
@@ -35,7 +41,29 @@ def packet_callback(packet):
     print(f"Packet #{packet_count}")
     print(HEADER_DIVIDER)
 
+    # Analyze packet (Display)
     analyze_packet(packet)
+
+    # ==========================
+    # Export Data
+    # ==========================
+
+    protocol = detect_protocol(packet)
+
+    source_ip = "-"
+    destination_ip = "-"
+
+    if packet.haslayer(IP):
+        source_ip = packet[IP].src
+        destination_ip = packet[IP].dst
+
+    export_csv(
+        packet_number=packet_count,
+        protocol=protocol["transport"],
+        source_ip=source_ip,
+        destination_ip=destination_ip,
+        length=len(packet),
+    )
 
 
 def start_capture(
@@ -44,24 +72,20 @@ def start_capture(
 ):
     """
     Start live packet capture.
-
-    Args:
-        interface (str): Network interface.
-        count (int): Number of packets to capture.
     """
 
     global packet_count
 
     packet_count = 0
 
+    # Create CSV file if needed
+    initialize_csv()
+
     print(HEADER_DIVIDER)
     print("Starting Packet Capture...")
     print(HEADER_DIVIDER)
 
-    # ==========================================
-    # Build Berkeley Packet Filter (BPF)
-    # ==========================================
-
+    # Build Berkeley Packet Filter
     bpf_filter = build_bpf_filter(
         FILTER_TYPE,
         FILTER_VALUE,
@@ -73,10 +97,6 @@ def start_capture(
             "Active BPF Filter: %s",
             bpf_filter,
         )
-
-    # ==========================================
-    # Start Packet Capture
-    # ==========================================
 
     try:
 

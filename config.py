@@ -129,3 +129,20 @@ COMMON_PORTS = {
 
 FILTER_TYPE = None
 FILTER_VALUE = None
+
+
+# ==========================================================
+# Export Configuration
+# ==========================================================
+
+# Export directory
+EXPORT_DIRECTORY = "exports"
+
+# CSV Export
+CSV_EXPORT = f"{EXPORT_DIRECTORY}/packets.csv"
+
+# JSON Export (Lesson 8 - Phase 2)
+JSON_EXPORT = f"{EXPORT_DIRECTORY}/packets.json"
+
+# PCAP Export (Lesson 8 - Phase 3)
+PCAP_EXPORT = f"{EXPORT_DIRECTORY}/capture.pcap"
