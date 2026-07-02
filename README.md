@@ -1,14 +1,17 @@
-
 # 🛡️ CodeAlpha Basic Network Sniffer
+
+<p align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Scapy](https://img.shields.io/badge/Scapy-Network%20Analysis-green)
 ![Platform](https://img.shields.io/badge/Platform-Linux-success)
-![Tests](https://img.shields.io/badge/Tests-26%20Passed-brightgreen)
+[![GitHub Actions](https://github.com/sahadatx/CodeAlpha-Basic-Network-Sniffer/actions/workflows/python.yml/badge.svg)](https://github.com/sahadatx/CodeAlpha-Basic-Network-Sniffer/actions/workflows/python.yml)
 ![Version](https://img.shields.io/badge/Version-v1.0.0-orange)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-A professional **Python-based Network Packet Sniffer** built using **Scapy**.
+</p>
+
+A professional Python-based **Network Packet Sniffer** built using **Scapy**.
 
 This application captures live network traffic, analyzes packets, applies **Berkeley Packet Filters (BPF)**, exports captured packets in multiple formats (**CSV**, **JSON**, and **PCAP**), and provides a professional real-time statistics dashboard through a command-line interface.
 
@@ -127,6 +130,8 @@ Designed as part of the **CodeAlpha Cyber Security Internship**, this project de
 ![Project Structure](screenshots/08-project-structure.png)
 
 ---
+
+
 
 # 📊 Statistics Dashboard
 
