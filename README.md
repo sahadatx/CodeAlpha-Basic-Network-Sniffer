@@ -25,10 +25,6 @@ Designed as part of the **CodeAlpha Cyber Security Internship**, this project de
 - [Features](#-features)
 - [Screenshots](#-screenshots)
 - [Project Structure](#-project-structure)
-- [Requirements](#-requirements)
-- [Installation](#-installation)
-- [Quick Start](#-quick-start)
-- [Usage](#-usage)
 - [Statistics Dashboard](#-statistics-dashboard)
 - [Export Formats](#-export-formats)
 - [Testing](#-testing)
@@ -135,6 +131,9 @@ CodeAlpha-Basic-Network-Sniffer/
 ├── sniffer.py
 └── VALIDATION.md
 ```
+
+
+
 
 # 📊 Statistics Dashboard
 
@@ -378,33 +377,16 @@ Cybersecurity Enthusiast
 - 💼 LinkedIn: https://www.linkedin.com/in/pentester-sahadat-hossain/
 - 🐙 GitHub: https://github.com/sahadatx
 
-
-# 🙏 Acknowledgements
-
-Special thanks to the following open-source projects and communities:
-
-- Python
-- Scapy
-- Wireshark
-- Pytest
-- Git
-- GitHub
-- CodeAlpha Internship Program
-
 ---
 
 # ⭐ Support
 
 If you found this project useful:
 
-⭐ Star this repository
-
-🍴 Fork the project
-
-🛠️ Contribute improvements
-
-📢 Share it with others
-
+- ⭐ Star this repository
+- 🍴 Fork the project
+- 🛠️ Contribute improvements
+- 📢 Share it with others
 
 ---
 
@@ -412,6 +394,6 @@ If you found this project useful:
 
 Made with ❤️ by **Sahadat Hossain**
 
-⭐ If you found this project helpful, please consider starring the repository.
+⭐ If you found this project helpful, please consider giving it a Star.
 
 </div>
