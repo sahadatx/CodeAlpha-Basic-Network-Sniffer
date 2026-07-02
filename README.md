@@ -19,21 +19,6 @@ Designed as part of the **CodeAlpha Cyber Security Internship**, this project de
 
 ---
 
-# ✨ Key Highlights
-
-- 📡 Live Packet Capture
-- 🌐 Ethernet & IPv4 Analysis
-- 🔍 TCP, UDP, ICMP & ARP Detection
-- 🎯 Berkeley Packet Filters (BPF)
-- 📊 Real-Time Statistics Dashboard
-- 📁 CSV / JSON / PCAP Export
-- 📝 Logging System
-- 💻 Professional Command-Line Interface
-- ⚠️ Error Handling
-- 🧪 Unit & Integration Testing
-- 📖 Professional Documentation
-
----
 
 # 📑 Table of Contents
 
@@ -283,15 +268,6 @@ The project includes automated **Unit Tests** and **Basic Integration Tests** us
 pytest tests -v
 ```
 
-### Current Test Status
-
-```text
-=============================
-26 Passed
-0 Failed
-=============================
-```
-
 ### Test Coverage
 
 The test suite verifies:
@@ -398,31 +374,10 @@ See the **LICENSE** file for more details.
 
 Cybersecurity Enthusiast
 
-### GitHub
+- 📧 Email: pentester.sahadathossain@gmail.com
+- 💼 LinkedIn: https://www.linkedin.com/in/pentester-sahadat-hossain/
+- 🐙 GitHub: https://github.com/sahadatx
 
-https://github.com/sahadatx
-
-### LinkedIn
-
-https://www.linkedin.com/in/pentester-sahadat-hossain/
-
----
-
-# 🏷️ Version
-
-Current Stable Release
-
-```text
-v1.0.0
-```
-
-Release Date
-
-```text
-July 2026
-```
-
----
 
 # 🙏 Acknowledgements
 
@@ -450,74 +405,13 @@ If you found this project useful:
 
 📢 Share it with others
 
----
-
-# 📬 Contact
-
-For questions, suggestions, or collaboration opportunities:
-
-📧 Email: pentester.sahadathossain@gmail.com
-
-💼 LinkedIn: https://www.linkedin.com/in/pentester-sahadat-hossain/
-
-🐙 GitHub: https://github.com/sahadatx
-
----
-
-# 📌 Repository Topics
-
-Recommended GitHub Topics:
-
-```text
-python
-cybersecurity
-network
-network-sniffer
-packet-sniffer
-packet-analysis
-scapy
-pcap
-wireshark
-tcp
-udp
-icmp
-arp
-cli
-pytest
-codealpha
-```
-
----
-
-# 🎉 Project Status
-
-| Category | Status |
-|----------|:------:|
-| Live Packet Capture | ✅ |
-| Protocol Detection | ✅ |
-| Berkeley Packet Filter | ✅ |
-| CSV Export | ✅ |
-| JSON Export | ✅ |
-| PCAP Export | ✅ |
-| Wireshark Compatible | ✅ |
-| Statistics Dashboard | ✅ |
-| Logging | ✅ |
-| Error Handling | ✅ |
-| Unit Testing | ✅ |
-| Integration Testing | ✅ |
-| Documentation | ✅ |
-| Screenshots | ✅ |
-| Validation Report | ✅ |
-| GitHub Release | ✅ |
 
 ---
 
 <div align="center">
 
-## ⭐ Thank You for Visiting!
+Made with ❤️ by **Sahadat Hossain**
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
-
-**Happy Learning & Happy Coding! 🚀**
+⭐ If you found this project helpful, please consider starring the repository.
 
 </div>
