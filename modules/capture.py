@@ -17,6 +17,7 @@ from config import (
 
 from modules.analyzer import analyze_packet
 from modules.filters import build_bpf_filter
+from modules.logger import logger
 
 packet_count = 0
 
@@ -53,26 +54,61 @@ def start_capture(
 
     packet_count = 0
 
-    print("=" * 50)
+    print(HEADER_DIVIDER)
     print("Starting Packet Capture...")
-    print("=" * 50)
+    print(HEADER_DIVIDER)
 
+    # ==========================================
     # Build Berkeley Packet Filter (BPF)
+    # ==========================================
+
     bpf_filter = build_bpf_filter(
         FILTER_TYPE,
         FILTER_VALUE,
     )
 
-    # Show active filter
     if bpf_filter:
         print(f"BPF Filter : {bpf_filter}")
+        logger.debug(
+            "Active BPF Filter: %s",
+            bpf_filter,
+        )
 
-    sniff(
-        iface=interface,
-        prn=packet_callback,
-        count=count,
-        store=STORE_PACKETS,
-        filter=bpf_filter,
-    )
+    # ==========================================
+    # Start Packet Capture
+    # ==========================================
+
+    try:
+
+        sniff(
+            iface=interface,
+            prn=packet_callback,
+            count=count,
+            store=STORE_PACKETS,
+            filter=bpf_filter,
+        )
+
+        logger.info(
+            "Packet capture completed successfully."
+        )
+
+    except PermissionError:
+
+        logger.error(
+            "Permission denied. Run the program using sudo."
+        )
+
+    except KeyboardInterrupt:
+
+        logger.warning(
+            "Packet capture stopped by user."
+        )
+
+    except Exception as error:
+
+        logger.exception(
+            "Unexpected error: %s",
+            error,
+        )
 
     print("\nCapture Completed.")

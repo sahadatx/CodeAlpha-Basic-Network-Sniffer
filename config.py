@@ -9,7 +9,7 @@ Central configuration file for the Network Sniffer.
 # ==========================================================
 
 APP_NAME = "CodeAlpha Basic Network Sniffer"
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 
 # ==========================================================
 # Packet Capture Configuration
@@ -30,10 +30,20 @@ STORE_PACKETS = False
 # Logging Configuration
 # ==========================================================
 
+# Available Levels:
+# DEBUG
+# INFO
+# WARNING
+# ERROR
+# CRITICAL
+
 LOG_LEVEL = "INFO"
 
-# Future use (Lesson 7)
 LOG_FILE = "logs/sniffer.log"
+
+LOG_FORMAT = "%(asctime)s | %(levelname)-8s | %(message)s"
+
+LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 # ==========================================================
 # Output Formatting
@@ -95,11 +105,27 @@ COMMON_PORTS = {
     5228: "Google Play Services",
 }
 
-
 # ==========================================================
 # Packet Filter Configuration
 # ==========================================================
 
+# Examples:
+#
+# FILTER_TYPE = None
+#
+# FILTER_TYPE = "tcp"
+#
+# FILTER_TYPE = "udp"
+#
+# FILTER_TYPE = "icmp"
+#
+# FILTER_TYPE = "arp"
+#
+# FILTER_TYPE = "port"
+# FILTER_VALUE = 443
+#
+# FILTER_TYPE = "ip"
+# FILTER_VALUE = "8.8.8.8"
+
 FILTER_TYPE = None
 FILTER_VALUE = None
-

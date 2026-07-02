@@ -8,6 +8,7 @@ from scapy.layers.inet import IP
 from scapy.layers.l2 import Ether
 
 from config import SECTION_DIVIDER
+from modules.logger import logger
 from modules.protocols import detect_protocol
 
 
@@ -20,10 +21,32 @@ def analyze_packet(packet):
     """
 
     # ==========================
-    # Protocol Information
+    # Protocol Detection
     # ==========================
 
     protocol = detect_protocol(packet)
+
+    # ==========================
+    # Logging
+    # ==========================
+
+    src_ip = "-"
+    dst_ip = "-"
+
+    if packet.haslayer(IP):
+        src_ip = packet[IP].src
+        dst_ip = packet[IP].dst
+
+    logger.info(
+        "%s | %s -> %s",
+        protocol["transport"],
+        src_ip,
+        dst_ip,
+    )
+
+    # ==========================
+    # Protocol Information
+    # ==========================
 
     print("\n[Protocol Information]")
     print(SECTION_DIVIDER)
