@@ -26,6 +26,12 @@ from modules.exporter import (
 from modules.filters import build_bpf_filter
 from modules.logger import logger
 from modules.protocols import detect_protocol
+from modules.statistics import (
+    initialize_statistics,
+    update_statistics,
+    finish_statistics,
+    print_dashboard,
+)
 
 packet_count = 0
 
@@ -43,15 +49,15 @@ def packet_callback(packet):
     print(f"Packet #{packet_count}")
     print(HEADER_DIVIDER)
 
-    # ==========================
+    # ==================================================
     # Analyze Packet
-    # ==========================
+    # ==================================================
 
     analyze_packet(packet)
 
-    # ==========================
-    # Prepare Export Data
-    # ==========================
+    # ==================================================
+    # Prepare Packet Information
+    # ==================================================
 
     protocol = detect_protocol(packet)
 
@@ -62,9 +68,9 @@ def packet_callback(packet):
         source_ip = packet[IP].src
         destination_ip = packet[IP].dst
 
-    # ==========================
+    # ==================================================
     # Export Packet
-    # ==========================
+    # ==================================================
 
     try:
 
@@ -93,6 +99,17 @@ def packet_callback(packet):
             error,
         )
 
+    # ==================================================
+    # Update Statistics
+    # ==================================================
+
+    update_statistics(
+        protocol=protocol["transport"],
+        source_ip=source_ip,
+        destination_ip=destination_ip,
+        packet_size=len(packet),
+    )
+
 
 def start_capture(
     interface=DEFAULT_INTERFACE,
@@ -100,22 +117,30 @@ def start_capture(
 ):
     """
     Start live packet capture.
+
+    Args:
+        interface (str): Network interface.
+        count (int): Number of packets to capture.
     """
 
     global packet_count
 
     packet_count = 0
 
-    # Initialize export files
+    # ==================================================
+    # Initialize Modules
+    # ==================================================
+
     initialize_exports()
+    initialize_statistics()
 
     print(HEADER_DIVIDER)
     print("Starting Packet Capture...")
     print(HEADER_DIVIDER)
 
-    # ==========================
-    # Build Berkeley Packet Filter
-    # ==========================
+    # ==================================================
+    # Build Berkeley Packet Filter (BPF)
+    # ==================================================
 
     bpf_filter = build_bpf_filter(
         FILTER_TYPE,
@@ -123,11 +148,17 @@ def start_capture(
     )
 
     if bpf_filter:
+
         print(f"BPF Filter : {bpf_filter}")
+
         logger.debug(
             "Active BPF Filter: %s",
             bpf_filter,
         )
+
+    # ==================================================
+    # Start Packet Capture
+    # ==================================================
 
     try:
 
@@ -138,6 +169,14 @@ def start_capture(
             store=STORE_PACKETS,
             filter=bpf_filter,
         )
+
+        finish_statistics()
+
+        # ==================================================
+        # Display Statistics Dashboard
+        # ==================================================
+
+        print_dashboard()
 
         logger.info(
             "Packet capture completed successfully."
@@ -150,6 +189,14 @@ def start_capture(
         )
 
     except KeyboardInterrupt:
+
+        finish_statistics()
+
+        # ==================================================
+        # Display Statistics Dashboard
+        # ==================================================
+
+        print_dashboard()
 
         logger.warning(
             "Packet capture stopped by user."

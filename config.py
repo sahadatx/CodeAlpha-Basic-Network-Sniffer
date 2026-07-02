@@ -9,7 +9,7 @@ Central configuration file for the Network Sniffer.
 # ==========================================================
 
 APP_NAME = "CodeAlpha Basic Network Sniffer"
-VERSION = "1.2.0"
+VERSION = "1.3.0"
 
 # ==========================================================
 # Packet Capture Configuration
