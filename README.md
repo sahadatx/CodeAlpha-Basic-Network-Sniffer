@@ -131,7 +131,25 @@ Designed as part of the **CodeAlpha Cyber Security Internship**, this project de
 
 ---
 
+# 📂 Project Structure
 
+```text
+CodeAlpha-Basic-Network-Sniffer/
+│
+├── .github/
+│   └── workflows/
+├── exports/
+├── modules/
+├── screenshots/
+├── tests/
+├── .gitignore
+├── config.py
+├── LICENSE
+├── README.md
+├── requirements.txt
+├── sniffer.py
+└── VALIDATION.md
+```
 
 # 📊 Statistics Dashboard
 
