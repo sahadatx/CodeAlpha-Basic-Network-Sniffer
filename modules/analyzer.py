@@ -7,9 +7,8 @@ Extracts useful information from captured packets.
 from scapy.layers.inet import IP
 from scapy.layers.l2 import Ether
 
-from config import (
-    SECTION_DIVIDER,
-)
+from config import SECTION_DIVIDER
+from modules.protocols import detect_protocol
 
 
 def analyze_packet(packet):
@@ -19,6 +18,18 @@ def analyze_packet(packet):
     Args:
         packet: Scapy packet object.
     """
+
+    # ==========================
+    # Protocol Information
+    # ==========================
+
+    protocol = detect_protocol(packet)
+
+    print("\n[Protocol Information]")
+    print(SECTION_DIVIDER)
+    print(f"Layer 2          : {protocol['layer2']}")
+    print(f"Layer 3          : {protocol['layer3']}")
+    print(f"Protocol         : {protocol['transport']}")
 
     # ==========================
     # Ethernet Layer
