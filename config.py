@@ -94,3 +94,12 @@ COMMON_PORTS = {
     # Google Services
     5228: "Google Play Services",
 }
+
+
+# ==========================================================
+# Packet Filter Configuration
+# ==========================================================
+
+FILTER_TYPE = None
+FILTER_VALUE = None
+

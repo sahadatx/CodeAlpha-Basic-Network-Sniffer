@@ -10,9 +10,13 @@ from config import (
     CAPTURE_COUNT,
     DEFAULT_INTERFACE,
     HEADER_DIVIDER,
+    FILTER_TYPE,
+    FILTER_VALUE,
+    STORE_PACKETS,
 )
 
 from modules.analyzer import analyze_packet
+from modules.filters import build_bpf_filter
 
 packet_count = 0
 
@@ -53,11 +57,22 @@ def start_capture(
     print("Starting Packet Capture...")
     print("=" * 50)
 
+    # Build Berkeley Packet Filter (BPF)
+    bpf_filter = build_bpf_filter(
+        FILTER_TYPE,
+        FILTER_VALUE,
+    )
+
+    # Show active filter
+    if bpf_filter:
+        print(f"BPF Filter : {bpf_filter}")
+
     sniff(
         iface=interface,
         prn=packet_callback,
         count=count,
-        store=False,
+        store=STORE_PACKETS,
+        filter=bpf_filter,
     )
 
     print("\nCapture Completed.")
