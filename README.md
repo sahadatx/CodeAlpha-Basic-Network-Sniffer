@@ -29,11 +29,11 @@ Designed as part of the **CodeAlpha Cyber Security Internship**, this project de
 - [Export Formats](#-export-formats)
 - [Testing](#-testing)
 - [Logging](#-logging)
-- [Technologies Used](#-technologies-used)
+- [Technologies Used](#technologies-used)
 - [Future Improvements](#-future-improvements)
 - [Contributing](#-contributing)
 - [License](#-license)
-- [Author](#-author)
+- [Author](#author)
 
 ---
 
@@ -303,7 +303,7 @@ Logged Information
 
 ---
 
-# 🛠️ Technologies Used
+# Technologies Used
 
 | Technology | Purpose |
 |------------|----------|
@@ -367,7 +367,7 @@ See the **LICENSE** file for more details.
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 **Sahadat Hossain**
 
