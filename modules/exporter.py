@@ -25,7 +25,7 @@ from config import (
 
 def initialize_exports():
     """
-    Prepare export directory and files.
+    Prepare export directory and export files.
     """
 
     os.makedirs(EXPORT_DIRECTORY, exist_ok=True)
@@ -46,10 +46,13 @@ def initialize_exports():
 
 
 # =====================================================
-# CSV
+# CSV Export
 # =====================================================
 
 def initialize_csv():
+    """
+    Create CSV file with column headers.
+    """
 
     if os.path.exists(CSV_EXPORT):
         return
@@ -63,11 +66,11 @@ def initialize_csv():
         writer = csv.writer(file)
 
         writer.writerow([
-            "Packet",
+            "Packet Number",
             "Protocol",
             "Source IP",
             "Destination IP",
-            "Length",
+            "Length (Bytes)",
         ])
 
 
@@ -78,6 +81,9 @@ def export_csv(
     destination_ip,
     length,
 ):
+    """
+    Export packet information to CSV.
+    """
 
     with open(
         CSV_EXPORT,
@@ -97,15 +103,21 @@ def export_csv(
 
 
 # =====================================================
-# JSON
+# JSON Export
 # =====================================================
 
 def initialize_json():
+    """
+    Create an empty JSON export file.
+    """
 
     if os.path.exists(JSON_EXPORT):
         return
 
-    with open(JSON_EXPORT, "w") as file:
+    with open(
+        JSON_EXPORT,
+        "w",
+    ) as file:
 
         json.dump([], file, indent=4)
 
@@ -117,18 +129,25 @@ def export_json(
     destination_ip,
     length,
 ):
+    """
+    Export packet information to JSON.
+    """
 
     packet = {
-        "packet": packet_number,
-        "protocol": protocol,
-        "source_ip": source_ip,
-        "destination_ip": destination_ip,
-        "length": length,
+        "Packet Number": packet_number,
+        "Protocol": protocol,
+        "Source IP": source_ip,
+        "Destination IP": destination_ip,
+        "Length (Bytes)": length,
     }
 
     try:
 
-        with open(JSON_EXPORT, "r") as file:
+        with open(
+            JSON_EXPORT,
+            "r",
+        ) as file:
+
             data = json.load(file)
 
     except Exception:
@@ -137,7 +156,10 @@ def export_json(
 
     data.append(packet)
 
-    with open(JSON_EXPORT, "w") as file:
+    with open(
+        JSON_EXPORT,
+        "w",
+    ) as file:
 
         json.dump(
             data,
@@ -147,12 +169,12 @@ def export_json(
 
 
 # =====================================================
-# PCAP
+# PCAP Export
 # =====================================================
 
 def export_pcap(packet):
     """
-    Append packet to PCAP file.
+    Append packet to the PCAP file.
     """
 
     wrpcap(

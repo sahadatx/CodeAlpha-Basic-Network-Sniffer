@@ -36,6 +36,27 @@ stats = {
 
 
 # ==========================================================
+# Human Readable Size
+# ==========================================================
+
+def human_readable_size(size):
+    """
+    Convert bytes into a human-readable format.
+    """
+
+    units = ["Bytes", "KB", "MB", "GB", "TB"]
+
+    value = float(size)
+
+    for unit in units:
+
+        if value < 1024 or unit == units[-1]:
+            return f"{value:.2f} {unit}"
+
+        value /= 1024
+
+
+# ==========================================================
 # Initialize
 # ==========================================================
 
@@ -147,16 +168,18 @@ def print_dashboard():
 
     total = stats["total"]
 
-    if total > 0:
+    if total > 0 and duration > 0:
 
         tcp_percent = (stats["tcp"] / total) * 100
         udp_percent = (stats["udp"] / total) * 100
         icmp_percent = (stats["icmp"] / total) * 100
         arp_percent = (stats["arp"] / total) * 100
-        unknown_percent = (stats["unknown"] / total) * 100
+        unknown_percent = (
+            stats["unknown"] / total
+        ) * 100
 
         packet_rate = total / duration
-        bytes_per_second = total_bytes / duration
+        data_rate = total_bytes / duration
 
     else:
 
@@ -167,10 +190,20 @@ def print_dashboard():
         unknown_percent = 0
 
         packet_rate = 0
-        bytes_per_second = 0
+        data_rate = 0
+
+    human_total_traffic = human_readable_size(
+        total_bytes
+    )
+
+    human_data_rate = human_readable_size(
+        data_rate
+    )
 
     top_sources = stats["source_ips"].most_common(5)
-    top_destinations = stats["destination_ips"].most_common(5)
+    top_destinations = (
+        stats["destination_ips"].most_common(5)
+    )
 
     print()
     print(HEADER_DIVIDER)
@@ -179,29 +212,51 @@ def print_dashboard():
 
     print(f"Total Packets        : {total}")
     print(f"Capture Duration     : {duration:.2f} Seconds")
-    print(f"Packets / Second     : {packet_rate:.2f}")
-    print(f"Bytes / Second       : {bytes_per_second:.2f}")
+    print(
+        f"Packet Rate          : {packet_rate:.2f} pkt/s"
+    )
+    print(
+        f"Data Rate            : {human_data_rate}/s"
+    )
 
     print()
     print(SECTION_DIVIDER)
     print("Protocol Distribution")
     print(SECTION_DIVIDER)
 
-    print(f"TCP                  : {stats['tcp']} ({tcp_percent:.1f}%)")
-    print(f"UDP                  : {stats['udp']} ({udp_percent:.1f}%)")
-    print(f"ICMP                 : {stats['icmp']} ({icmp_percent:.1f}%)")
-    print(f"ARP                  : {stats['arp']} ({arp_percent:.1f}%)")
-    print(f"Unknown              : {stats['unknown']} ({unknown_percent:.1f}%)")
+    print(
+        f"TCP                  : {stats['tcp']} ({tcp_percent:.1f}%)"
+    )
+    print(
+        f"UDP                  : {stats['udp']} ({udp_percent:.1f}%)"
+    )
+    print(
+        f"ICMP                 : {stats['icmp']} ({icmp_percent:.1f}%)"
+    )
+    print(
+        f"ARP                  : {stats['arp']} ({arp_percent:.1f}%)"
+    )
+    print(
+        f"Unknown              : {stats['unknown']} ({unknown_percent:.1f}%)"
+    )
 
     print()
     print(SECTION_DIVIDER)
     print("Traffic Summary")
     print(SECTION_DIVIDER)
 
-    print(f"Total Traffic        : {total_bytes} Bytes")
-    print(f"Minimum Packet       : {minimum} Bytes")
-    print(f"Maximum Packet       : {maximum} Bytes")
-    print(f"Average Packet       : {average:.2f} Bytes")
+    print(
+        f"Total Traffic        : {human_total_traffic}"
+    )
+    print(
+        f"Minimum Packet       : {minimum} Bytes"
+    )
+    print(
+        f"Maximum Packet       : {maximum} Bytes"
+    )
+    print(
+        f"Average Packet       : {average:.2f} Bytes"
+    )
 
     print()
     print(SECTION_DIVIDER)
@@ -209,9 +264,15 @@ def print_dashboard():
     print(SECTION_DIVIDER)
 
     if top_sources:
+
         for ip, count in top_sources:
-            print(f"{ip:<20} {count:>5} packets")
+
+            print(
+                f"{ip:<20} {count:>5} packets"
+            )
+
     else:
+
         print("-")
 
     print()
@@ -220,9 +281,15 @@ def print_dashboard():
     print(SECTION_DIVIDER)
 
     if top_destinations:
+
         for ip, count in top_destinations:
-            print(f"{ip:<20} {count:>5} packets")
+
+            print(
+                f"{ip:<20} {count:>5} packets"
+            )
+
     else:
+
         print("-")
 
     print()
