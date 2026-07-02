@@ -10,16 +10,18 @@ from scapy.layers.inet import IP
 from config import (
     CAPTURE_COUNT,
     DEFAULT_INTERFACE,
-    HEADER_DIVIDER,
     FILTER_TYPE,
     FILTER_VALUE,
+    HEADER_DIVIDER,
     STORE_PACKETS,
 )
 
 from modules.analyzer import analyze_packet
 from modules.exporter import (
-    initialize_csv,
+    initialize_exports,
     export_csv,
+    export_json,
+    export_pcap,
 )
 from modules.filters import build_bpf_filter
 from modules.logger import logger
@@ -41,11 +43,14 @@ def packet_callback(packet):
     print(f"Packet #{packet_count}")
     print(HEADER_DIVIDER)
 
-    # Analyze packet (Display)
+    # ==========================
+    # Analyze Packet
+    # ==========================
+
     analyze_packet(packet)
 
     # ==========================
-    # Export Data
+    # Prepare Export Data
     # ==========================
 
     protocol = detect_protocol(packet)
@@ -57,13 +62,36 @@ def packet_callback(packet):
         source_ip = packet[IP].src
         destination_ip = packet[IP].dst
 
-    export_csv(
-        packet_number=packet_count,
-        protocol=protocol["transport"],
-        source_ip=source_ip,
-        destination_ip=destination_ip,
-        length=len(packet),
-    )
+    # ==========================
+    # Export Packet
+    # ==========================
+
+    try:
+
+        export_csv(
+            packet_number=packet_count,
+            protocol=protocol["transport"],
+            source_ip=source_ip,
+            destination_ip=destination_ip,
+            length=len(packet),
+        )
+
+        export_json(
+            packet_number=packet_count,
+            protocol=protocol["transport"],
+            source_ip=source_ip,
+            destination_ip=destination_ip,
+            length=len(packet),
+        )
+
+        export_pcap(packet)
+
+    except Exception as error:
+
+        logger.error(
+            "Export failed: %s",
+            error,
+        )
 
 
 def start_capture(
@@ -78,14 +106,17 @@ def start_capture(
 
     packet_count = 0
 
-    # Create CSV file if needed
-    initialize_csv()
+    # Initialize export files
+    initialize_exports()
 
     print(HEADER_DIVIDER)
     print("Starting Packet Capture...")
     print(HEADER_DIVIDER)
 
+    # ==========================
     # Build Berkeley Packet Filter
+    # ==========================
+
     bpf_filter = build_bpf_filter(
         FILTER_TYPE,
         FILTER_VALUE,

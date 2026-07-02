@@ -141,8 +141,16 @@ EXPORT_DIRECTORY = "exports"
 # CSV Export
 CSV_EXPORT = f"{EXPORT_DIRECTORY}/packets.csv"
 
-# JSON Export (Lesson 8 - Phase 2)
+# JSON Export
 JSON_EXPORT = f"{EXPORT_DIRECTORY}/packets.json"
 
-# PCAP Export (Lesson 8 - Phase 3)
+# PCAP Export
 PCAP_EXPORT = f"{EXPORT_DIRECTORY}/capture.pcap"
+
+# ==========================================================
+# Export Behavior
+# ==========================================================
+
+# True  -> Create new export files on every run
+# False -> Append to existing export files
+OVERWRITE_EXPORT = True

@@ -22,6 +22,7 @@ def setup_logger():
 
     logger = logging.getLogger("NetworkSniffer")
 
+    # Prevent duplicate handlers
     if logger.handlers:
         return logger
 
@@ -32,13 +33,28 @@ def setup_logger():
         datefmt=LOG_DATE_FORMAT,
     )
 
+    # ==========================================
     # File Logger
+    # ==========================================
+
     file_handler = logging.FileHandler(LOG_FILE)
+    file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
 
+    # ==========================================
     # Console Logger
+    # ==========================================
+
     console_handler = logging.StreamHandler()
+
+    # Only show WARNING and above on console
+    console_handler.setLevel(logging.WARNING)
+
     console_handler.setFormatter(formatter)
+
+    # ==========================================
+    # Add Handlers
+    # ==========================================
 
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
