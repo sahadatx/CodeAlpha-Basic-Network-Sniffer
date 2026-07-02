@@ -9,41 +9,45 @@ from modules.cli import parse_arguments
 
 def main():
     """
-    Start the Network Sniffer.
+    Application entry point.
     """
+
+    # ==========================================
+    # Show Banner
+    # ==========================================
 
     show_banner()
 
+    # ==========================================
+    # Parse Command-line Arguments
+    # ==========================================
+
     args = parse_arguments()
+
+    # ==========================================
+    # Build Filter Configuration
+    # ==========================================
 
     filter_type = None
     filter_value = None
 
-    # ==========================================
-    # Protocol Filter
-    # ==========================================
-
     if args.filter:
 
         filter_type = args.filter
-
-    # ==========================================
-    # Port Filter
-    # ==========================================
 
     elif args.port:
 
         filter_type = "port"
         filter_value = args.port
 
-    # ==========================================
-    # IP Filter
-    # ==========================================
-
     elif args.ip:
 
         filter_type = "ip"
         filter_value = args.ip
+
+    # ==========================================
+    # Start Packet Capture
+    # ==========================================
 
     start_capture(
         interface=args.interface,
@@ -54,4 +58,15 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+
+    try:
+
+        main()
+
+    except KeyboardInterrupt:
+
+        print("\nInterrupted by user.")
+
+    except Exception as error:
+
+        print(f"\nFatal Error: {error}")
