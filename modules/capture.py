@@ -112,8 +112,10 @@ def packet_callback(packet):
 
 
 def start_capture(
-    interface=DEFAULT_INTERFACE,
-    count=CAPTURE_COUNT,
+    interface=None,
+    count=None,
+    filter_type=None,
+    filter_value=None,
 ):
     """
     Start live packet capture.
@@ -121,11 +123,29 @@ def start_capture(
     Args:
         interface (str): Network interface.
         count (int): Number of packets to capture.
+        filter_type (str): Packet filter type.
+        filter_value (str|int): Filter value.
     """
 
     global packet_count
 
     packet_count = 0
+
+    # ==================================================
+    # Load Configuration Defaults
+    # ==================================================
+
+    if interface is None:
+        interface = DEFAULT_INTERFACE
+
+    if count is None:
+        count = CAPTURE_COUNT
+
+    if filter_type is None:
+        filter_type = FILTER_TYPE
+
+    if filter_value is None:
+        filter_value = FILTER_VALUE
 
     # ==================================================
     # Initialize Modules
@@ -143,8 +163,8 @@ def start_capture(
     # ==================================================
 
     bpf_filter = build_bpf_filter(
-        FILTER_TYPE,
-        FILTER_VALUE,
+        filter_type,
+        filter_value,
     )
 
     if bpf_filter:
@@ -172,10 +192,6 @@ def start_capture(
 
         finish_statistics()
 
-        # ==================================================
-        # Display Statistics Dashboard
-        # ==================================================
-
         print_dashboard()
 
         logger.info(
@@ -191,10 +207,6 @@ def start_capture(
     except KeyboardInterrupt:
 
         finish_statistics()
-
-        # ==================================================
-        # Display Statistics Dashboard
-        # ==================================================
 
         print_dashboard()
 
