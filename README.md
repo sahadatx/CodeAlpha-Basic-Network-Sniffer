@@ -367,15 +367,16 @@ See the **LICENSE** file for more details.
 
 ---
 
-# Author
+# 👨‍💻 Author
 
 **Sahadat Hossain**
 
 Cybersecurity Enthusiast
 
 - 📧 Email: pentester.sahadathossain@gmail.com
-- 💼 LinkedIn: https://www.linkedin.com/in/pentester-sahadat-hossain/
-- 🐙 GitHub: https://github.com/sahadatx
+- 💼 LinkedIn: [Sahadat Hossain](https://www.linkedin.com/in/pentester-sahadat-hossain/)
+- 🐙 GitHub: [sahadatx](https://github.com/sahadatx)
+
 
 ---
 
